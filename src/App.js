@@ -24,9 +24,9 @@ class App extends Component {
                 <Header/>
                 <Switch>
                     <Route exact path={'/'} render={() => {
-                        return <Redirect to={'/products'}/>
+                        return <Redirect to={'/items'}/>
                     }}/>
-                    <Route exact path={'/products'} component={Home}/>
+                    <Route exact path={'/items'} component={Home}/>
                     <Route exact patr={'/cart'} component={ShoppingCart}/>
                 </Switch>
                 <Footer/>

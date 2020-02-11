@@ -37,7 +37,7 @@ class ProductList extends Component {
         _filteredItems.sort(function (a, b) {
             return parseFloat(a.price) - parseFloat(b.price);
         });
-        if (n == "LowHigh") {
+        if (n === "LowHigh") {
             this.setState({ items: _filteredItems });
         }
         else {
@@ -68,7 +68,13 @@ class ProductList extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    {this.state.items.map(item => {
+                    {this.props.items && this.props.items.length > 0 ?
+                        this.props.items.map(item => {
+                        return (<div className="col-lg-4 col-md-6 mb-4" key={item.id}>
+                            <Product key={item.id} item={item} />
+                        </div>)
+                    }) : 
+                    this.state.items.map(item => {
                         return (<div className="col-lg-4 col-md-6 mb-4" key={item.id}>
                             <Product key={item.id} item={item} />
                         </div>)
@@ -79,11 +85,10 @@ class ProductList extends Component {
     }
 }
 
-const mapStateToProps = (state, props) => {
+const mapStateToProps = (state) => {
     const priceFilter = state.orderBy;
     const filterByOrderArr = filterByPrice(state.shop.items, priceFilter);
-
     return { items: filterByOrderArr }
 };
 
-export default connect(mapStateToProps, null)(ProductList);
+export default connect(mapStateToProps)(ProductList);
