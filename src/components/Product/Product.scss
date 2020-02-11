@@ -26,20 +26,25 @@
 
   &__description {
     font-size: 0.7rem;
+    color:#069206;
   }
 
   &__add-to-cart {
-    position: absolute;
+    /*position: absolute;
     bottom: .8rem;
     width: 60%;
     left: 50%;
     opacity: 1;
-    visibility: visible;
+    visibility: visible;*/
     transform: translateX(-50%);
     transition: all .2s;
     padding: 3px 12px;
     background-color: #ffa500;
-    color: black
+    color: black;
+    width: 50%;
+    border-radius:30px;
+    margin-top:10px;
+
   }
 
   &:hover .owl-dots {
@@ -64,3 +69,4 @@
 .strikeText {
   text-decoration: line-through;
 }
+.product__price{display: inline-block;margin-right:5px;}

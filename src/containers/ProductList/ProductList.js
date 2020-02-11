@@ -79,7 +79,7 @@ class ProductList extends Component {
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, props) => {
     const priceFilter = state.orderBy;
     const filterByOrderArr = filterByPrice(state.shop.items, priceFilter);
 

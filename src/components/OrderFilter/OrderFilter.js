@@ -22,12 +22,13 @@ const OrderFilter = (
                 onChange={value => setvalue(value)} />
             <div className="contentCenter">Price</div>
             <br /><br />
-            <button
+            <div className="text-right"><button
                 onClick={() => {
                     dispatch(filterByPrice({ value }))
                 }}
                 className="btn product__add-to-cart">Apply
                 </button>
+            </div>
         </>
     );
 };
