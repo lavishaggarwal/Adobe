@@ -1,33 +1,47 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {formatMoney} from "../../pipes/priceFormatter";
+import { connect } from 'react-redux';
+import { formatMoney } from "../../pipes/priceFormatter";
 import CartItem from "../../components/CartItem/CartItem";
 
 const ShoppingCart = (props) => {
     return (
         <>
-                <div className="container" style={{paddingTop: '6rem'}}>
-                    <div className="card shopping-cart">
-                        <div className="card-header bg-dark text-light">
-                            <i className="fa fa-shopping-cart pr-2" aria-hidden="true"></i>
-                            Shipping cart
-                            <div className="clearfix"></div>
-                        </div>
-                        <div className="card-body">
-                            {props.cartItemCount > 0 ? props.cartItems.map(cart => (
-                                <CartItem {...cart} img={cart.img_url} key={cart.id} />
-                            )) : <h1 className="display-4 mt-5 text-center">There is no product in your cart</h1> }
-                        </div>
-                        <div className="card-footer">
-                            <div className="pull-right" style={{margin: '10px'}}>
-                                <div className="pull-right" style={{margin: '5px'}}>
-                                    Total price: <b>₹{formatMoney(props.totalPrice)}</b>
+            <div className="container" style={{ paddingTop: '6rem' }}>
+                <div className="card shopping-cart">
+
+                    <div className="card-body">
+                        {props.cartItemCount > 0 ? props.cartItems.map(cart => (
+                            <CartItem {...cart} img={cart.img_url} key={cart.id} />
+                        )) : <h1 className="display-4 mt-5 text-center">There are no products in your cart</h1>}
+                    </div>
+                    {props.cartItemCount > 0 ?
+                        <>
+                            <div className="card-footer">
+                                <div className="pull-right" style={{ margin: '10px' }}>
+                                    <div className="pull-right" style={{ margin: '5px' }}>
+                                        Price: <b>₹{formatMoney(props.itemPrice)}</b>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                            <div className="card-footer">
+                                <div className="pull-right" style={{ margin: '10px' }}>
+                                    <div className="pull-right" style={{ margin: '5px' }}>
+                                        Discount: <b>₹{formatMoney(props.itemDiscount)}</b>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="card-footer">
+                                <div className="pull-right" style={{ margin: '10px' }}>
+                                    <div className="pull-right" style={{ margin: '5px' }}>
+                                        Total price: <b>₹{formatMoney(props.itemPrice - props.itemDiscount)}</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </>
+                        : null}
                 </div>
-            </>
+            </div>
+        </>
     );
 };
 
@@ -38,9 +52,12 @@ const mapStateToProps = state => {
         cartItemCount: state.shop.cart.reduce((count, curItem) => {
             return count + curItem.quantity;
         }, 0),
-        totalPrice: state.shop.cart.reduce((count, curItem) => {
-            return count + ((curItem.price - (curItem.price/100)*curItem.discount) * curItem.quantity);
-        }, 0)
+        itemPrice: state.shop.cart.reduce((count, curItem) => {
+            return count + (curItem.price * curItem.quantity);
+        }, 0),
+        itemDiscount: state.shop.cart.reduce((count, curItem) => {
+            return count + (((curItem.price / 100) * curItem.discount) * curItem.quantity);
+        }, 0),
     }
 }
 
