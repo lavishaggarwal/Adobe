@@ -32,10 +32,17 @@ export const decrementCartQuantity = productId => {
 };
 
 export const FILTER_BY_PRICE = 'FILTER_BY_PRICE';
-
 export const filterByPrice = price => {
     return {
         type: FILTER_BY_PRICE,
         payload: price
+    }
+};
+
+export const FILTER_BY_NAME = 'FILTER_BY_NAME';
+export const filterByName = name => {
+    return {
+        type: FILTER_BY_NAME,
+        payload: name
     }
 };

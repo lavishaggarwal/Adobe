@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import {formatMoney} from "../../pipes/priceFormatter";
 import './Product.scss';
@@ -11,7 +11,6 @@ const Product = (props) => {
         price,
         img_url,
         discount,
-        id,
     } = props.item;
 
     return (

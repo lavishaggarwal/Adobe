@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {NavLink} from 'react-router-dom';
 import '../../App.css'
+import SearchBar from '../SearchBar/SearchBar'
 
 const Header = ({cartLength}) => {
 
@@ -9,7 +10,7 @@ const Header = ({cartLength}) => {
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark mainHeader fixed-top">
             <div className="container">
                 <NavLink className="navbar-brand" to="/"><i className="fa fa-star mr-2" aria-hidden="true" /></NavLink>
-                {/* <div className="navbar-brand" to="/"><i className="fa fa-search mr-2" aria-hidden="true" /></div> */}
+                <SearchBar />
                 <div>
                     <ul className="navbar-nav ml-auto">
                         <li className="nav-item">

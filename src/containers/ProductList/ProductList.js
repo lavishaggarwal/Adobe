@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Product from "../../components/Product/Product";
 import { filterByPrice } from "../../pipes/FilterByPrice";
+import { filterByName } from "../../pipes/FilterByName";
 
 class ProductList extends Component {
 
@@ -61,9 +62,9 @@ class ProductList extends Component {
                     <div className="col-12 d-none d-lg-block d-xl-block">
                         <div className="d-flex justify-content-start">
                             <span className="mr-3">Sort By: </span>
-                            <div className="col-3"><a href="javascript:void(0)" onClick={() => this.sortByPrice("HighLow")}>Price -- High Low</a></div>
-                            <div className="col-3"><a href="javascript:void(0)" onClick={() => this.sortByPrice("LowHigh")}>Price -- Low High</a></div>
-                            <div className="col-3"><a href="javascript:void(0)" onClick={() => this.sortByDiscount()}>Discount</a></div>
+                            <div className="col-3"><a href="!#" onClick={() => this.sortByPrice("HighLow")}>Price -- High Low</a></div>
+                            <div className="col-3"><a href="!#" onClick={() => this.sortByPrice("LowHigh")}>Price -- Low High</a></div>
+                            <div className="col-3"><a href="!#" onClick={() => this.sortByDiscount()}>Discount</a></div>
                         </div>
                     </div>
                 </div>
@@ -87,8 +88,10 @@ class ProductList extends Component {
 
 const mapStateToProps = (state) => {
     const priceFilter = state.orderBy;
-    const filterByOrderArr = filterByPrice(state.shop.items, priceFilter);
-    return { items: filterByOrderArr }
+    const nameFilter = state.nameFilter;
+    const filterByNameArr = filterByName(state.shop.items, nameFilter);
+    const filterByOrderArr = filterByPrice(filterByNameArr, priceFilter);
+    return { items: (filterByOrderArr != undefined ? filterByOrderArr: []) }
 };
 
 export default connect(mapStateToProps)(ProductList);
