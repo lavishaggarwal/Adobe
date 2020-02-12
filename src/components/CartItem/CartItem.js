@@ -52,16 +52,16 @@ const CartItem = (
             </div>
             <div className="col-12 text-sm-center col-sm-12 text-md-left col-md-5">
                 <h5 className="product-name"><strong>{name}</strong></h5>
-            </div>
-            <div className="col-12 col-sm-12 text-sm-center col-md-5 text-md-right row product-quantity-container align-items-center">
-                <div className="col-6 col-sm-6 col-md-6 text-md-right" style={{ paddingTop: '5px' }}>
-                    {/* <h6><strong>₹{formatMoney(price - (price/100)*discount)} <span className="text-muted">x</span></strong></h6> */}
-                    <div className="pull-left"><span className="product__price">₹{formatMoney(price - (price / 100) * discount)}</span>
+                <div>
+                    <span className="product__price">₹{formatMoney(price - (price / 100) * discount)}</span>
                         <span className="product__price strikeText">₹{formatMoney(price)}</span>
+                    <p className="card-text product__description">{discount}% off</p>
+                    
                     </div>
-                    <div className="pull-right"><p className="card-text product__description">{discount}% off</p></div>
-                </div>
-                <div className="col-4 col-sm-4 col-md-4">
+            </div>
+            <div className="col-12 col-sm-12 text-sm-center col-md-5 product-quantity-container">
+                <div className="d-flex">
+                <div className="col-4 col-sm-4 col-md-8">
                     <div className="quantity">
                         <input
                             onClick={(e) => { incrementOrDecrement(e, 'inc') }}
@@ -76,13 +76,14 @@ const CartItem = (
                             type="button" value="-" className="minus" />
                     </div>
                 </div>
-                <div className="col-2 col-sm-2 col-md-2 text-right">
+                <div className="col-2 col-sm-2 col-md-4 text-right">
                     <button
                         onClick={removeItem}
                         type="button" className="btn btn-outline-danger btn-xs">
-                        <i className="fa fa-trash" />
+                        Remove
                     </button>
                 </div>
+            </div>
             </div>
         </div>
     );

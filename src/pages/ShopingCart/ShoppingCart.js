@@ -7,16 +7,18 @@ const ShoppingCart = (props) => {
     return (
         <>
             <div className="container" style={{ paddingTop: '6rem' }}>
-                <div className="card shopping-cart">
+                <div className="row shopping-cart">
 
-                    <div className="card-body">
+                    <div className="col-md-9 card-body">
+                        <div className="card">
                         {props.cartItemCount > 0 ? props.cartItems.map(cart => (
                             <CartItem {...cart} img={cart.img_url} key={cart.id} />
                         )) : <h1 className="display-4 mt-5 text-center">There are no products in your cart</h1>}
+                        </div>
                     </div>
                     {props.cartItemCount > 0 ?
                         <>
-                            <div className="card-footer">
+                            <div className="col-md-3 card-footer">
                                 <div className="pull-right" style={{ margin: '10px' }}>
                                     <div className="pull-right" style={{ margin: '5px' }}>
                                         Price: <b>₹{formatMoney(props.itemPrice)}</b>
