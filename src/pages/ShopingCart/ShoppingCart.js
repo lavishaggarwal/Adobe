@@ -21,17 +21,11 @@ const ShoppingCart = (props) => {
                                     <div className="pull-right" style={{ margin: '5px' }}>
                                         Price: <b>₹{formatMoney(props.itemPrice)}</b>
                                     </div>
-                                </div>
-                            </div>
-                            <div className="card-footer">
-                                <div className="pull-right" style={{ margin: '10px' }}>
+                                    <br/>
                                     <div className="pull-right" style={{ margin: '5px' }}>
                                         Discount: <b>₹{formatMoney(props.itemDiscount)}</b>
                                     </div>
-                                </div>
-                            </div>
-                            <div className="card-footer">
-                                <div className="pull-right" style={{ margin: '10px' }}>
+                                    <br/>
                                     <div className="pull-right" style={{ margin: '5px' }}>
                                         Total price: <b>₹{formatMoney(props.itemPrice - props.itemDiscount)}</b>
                                     </div>
