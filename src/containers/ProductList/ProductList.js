@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Product from "../../components/Product/Product";
 import { filterByPrice } from "../../pipes/FilterByPrice";
 import { filterByName } from "../../pipes/FilterByName";
+import './ProductList.scss';
 
 class ProductList extends Component {
 
@@ -16,6 +17,7 @@ class ProductList extends Component {
             .then(res => res.json())
             .then(
                 (result) => {
+                    result.map(item => item.isAddedToCart = false);
                     this.setState({
                         isLoaded: true,
                         items: result
@@ -78,7 +80,7 @@ class ProductList extends Component {
                                     </div>)
                                 })
                                 :
-                                <div class="alert alert-warning" role="alert">No items found</div>
+                                <div className="alert alert-warning customMargin" role="alert">No items found</div>
                             :
                             this.props.items && this.props.items.length > 0 ?
                                 this.props.items.map(item => {

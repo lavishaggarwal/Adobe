@@ -18,7 +18,8 @@ const ShoppingCart = (props) => {
                     </div>
                     {props.cartItemCount > 0 ?
                         <>
-                            <div className="col-md-3 card-footer">
+                            <div className="col-md-3 card">
+                                <div>Price Details</div>
                                 <div className="pull-right" style={{ margin: '10px' }}>
                                     <div className="pull-right" style={{ margin: '5px' }}>
                                         Price: <b>₹{formatMoney(props.itemPrice)}</b>

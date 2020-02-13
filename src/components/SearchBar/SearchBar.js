@@ -12,17 +12,17 @@ const SearchBar = (
     const [nameFilter, setNameFilter] = useState("");
     return (
         <>
-            <div>
-                <div className="md-form form-lg pull-left">
+            <div  className="pull-left">
+                <div className="md-form form-lg d-inline-block">
                     <input type="text" id="inputSMEx" className="form-control form-control-sm" onChange={event => {
                         setNameFilter(event.target.value);
                     }} />
                 </div>
-                <div className="navbar-brand pull-right"
+                <div className="navbar-brand d-inline-block"
                     onClick={() => {
                         dispatch(filterByName({ nameFilter }))
                     }}><i className="fa fa-search mr-2" aria-hidden="true" /></div>
-                <div className="clearfix"></div>
+                
             </div>
         </>
     );
