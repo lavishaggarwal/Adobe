@@ -14,7 +14,8 @@ const getDataFromAPI = () => {
 
 const initialState = {
     cart: [],
-    items: getDataFromAPI()
+    items: getDataFromAPI(),
+    mode: ""
 };
 
 const shopReducer = (state = initialState, action) => {

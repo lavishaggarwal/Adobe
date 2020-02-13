@@ -62,24 +62,36 @@ class ProductList extends Component {
                     <div className="col-12 d-none d-lg-block d-xl-block">
                         <div className="d-flex justify-content-start">
                             <span className="mr-3">Sort By: </span>
-                            <div className="col-3"><a href="!#" onClick={() => this.sortByPrice("HighLow")}>Price -- High Low</a></div>
-                            <div className="col-3"><a href="!#" onClick={() => this.sortByPrice("LowHigh")}>Price -- Low High</a></div>
-                            <div className="col-3"><a href="!#" onClick={() => this.sortByDiscount()}>Discount</a></div>
+                            <div className="col-3"><a href="javascript:void(0)" onClick={() => this.sortByPrice("HighLow")}>Price -- High Low</a></div>
+                            <div className="col-3"><a href="javascript:void(0)" onClick={() => this.sortByPrice("LowHigh")}>Price -- Low High</a></div>
+                            <div className="col-3"><a href="javascript:void(0)" onClick={() => this.sortByDiscount()}>Discount</a></div>
                         </div>
                     </div>
                 </div>
                 <div className="row">
-                    {this.props.items && this.props.items.length > 0 ?
-                        this.props.items.map(item => {
-                        return (<div className="col-lg-4 col-md-6 mb-4" key={item.id}>
-                            <Product key={item.id} item={item} />
-                        </div>)
-                    }) : 
-                    this.state.items.map(item => {
-                        return (<div className="col-lg-4 col-md-6 mb-4" key={item.id}>
-                            <Product key={item.id} item={item} />
-                        </div>)
-                    })}
+                    {
+                        this.props.mode === "Filter" ?
+                            this.props.items && this.props.items.length > 0 ?
+                                this.props.items.map(item => {
+                                    return (<div className="col-lg-4 col-md-6 mb-4" key={item.id}>
+                                        <Product key={item.id} item={item} />
+                                    </div>)
+                                })
+                                :
+                                <div class="alert alert-warning" role="alert">No items found</div>
+                            :
+                            this.props.items && this.props.items.length > 0 ?
+                                this.props.items.map(item => {
+                                    return (<div className="col-lg-4 col-md-6 mb-4" key={item.id}>
+                                        <Product key={item.id} item={item} />
+                                    </div>)
+                                }) :
+                                this.state.items.map(item => {
+                                    return (<div className="col-lg-4 col-md-6 mb-4" key={item.id}>
+                                        <Product key={item.id} item={item} />
+                                    </div>)
+                                })
+                    }
                 </div>
             </div>
         );
@@ -91,7 +103,11 @@ const mapStateToProps = (state) => {
     const nameFilter = state.nameFilter;
     const filterByNameArr = filterByName(state.shop.items, nameFilter);
     const filterByOrderArr = filterByPrice(filterByNameArr, priceFilter);
-    return { items: (filterByOrderArr != undefined ? filterByOrderArr: []) }
+    var _mode = "Load";
+    if (priceFilter !== "" || nameFilter !== "") {
+        _mode = "Filter";
+    }
+    return { items: (filterByOrderArr !== undefined ? filterByOrderArr : []), mode: _mode }
 };
 
 export default connect(mapStateToProps)(ProductList);
