@@ -8,7 +8,8 @@ import './ProductList.scss';
 class ProductList extends Component {
 
     state = {
-        items: []
+        items: [],
+        sortFilter: "",
     };
 
 
@@ -41,10 +42,10 @@ class ProductList extends Component {
             return parseFloat(a.price) - parseFloat(b.price);
         });
         if (n === "LowHigh") {
-            this.setState({ items: _filteredItems });
+            this.setState({ items: _filteredItems, sortFilter: "asc" });
         }
         else {
-            this.setState({ items: _filteredItems.reverse() });
+            this.setState({ items: _filteredItems.reverse(), sortFilter: "desc" });
         }
     };
 
@@ -53,8 +54,27 @@ class ProductList extends Component {
         _filteredItems.sort(function (a, b) {
             return parseFloat(b.discount) - parseFloat(a.discount);
         });
-        this.setState({ items: _filteredItems });
+        this.setState({ items: _filteredItems, sortFilter: "discount" });
     };
+
+    filterProps = (data) => {
+        if (this.state.sortFilter == "asc") {
+            data.sort(function (a, b) {
+                return parseFloat(a.price) - parseFloat(b.price);
+            });
+        }
+        else if (this.state.sortFilter == "desc") {
+            data.sort(function (a, b) {
+                return parseFloat(a.price) - parseFloat(b.price);
+            }).reverse();
+        }
+        else if (this.state.sortFilter == "discount") {
+            data.sort(function (a, b) {
+                return parseFloat(b.discount) - parseFloat(a.discount);
+            });
+        }
+        this.setState({ items: data, sortFilter: "" });
+    }
 
 
     render() {
@@ -74,11 +94,12 @@ class ProductList extends Component {
                     {
                         this.props.mode === "Filter" ?
                             this.props.items && this.props.items.length > 0 ?
-                                this.props.items.map(item => {
-                                    return (<div className="col-lg-4 col-md-6 mb-4" key={item.id}>
-                                        <Product key={item.id} item={item} />
-                                    </div>)
-                                })
+                                this.state.sortFilter == "" ?
+                                    this.props.items.map(item => {
+                                        return (<div className="col-lg-4 col-md-6 mb-4" key={item.id}>
+                                            <Product key={item.id} item={item} />
+                                        </div>)
+                                    }) : this.filterProps(this.props.items)
                                 :
                                 <div className="alert alert-warning customMargin" role="alert">No items found</div>
                             :
